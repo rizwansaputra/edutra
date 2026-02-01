@@ -17,7 +17,13 @@
 
     @stack('styles')
 
-    
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/favicon/favicon-96x96.png') }}" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('assets/favicon/favicon.svg') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/favicon/favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicon/apple-touch-icon.png') }}" />
+    <meta name="apple-mobile-web-app-title" content="Edutra" />
+    <link rel="manifest" href="{{ asset('assets/favicon/site.webmanifest') }}" />
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-P33B3P7WMX"></script>
 <script>

@@ -1,0 +1,135 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero-section {
+    background: url('../assets/background/Hero-Banner.png') center/cover no-repeat;
+    border-radius: 32px;
+    padding: 40px;
+}
+
+.btn-primary-custom {
+    background-color: #FF6129;
+    border: none;
+    color: #fff;
+    padding: 10px 25px;
+}
+
+.btn-primary-custom:hover {
+    background-color: #e6531f;
+}
+
+.section-padding {
+    padding: 80px 20px;
+}
+
+.badge-title {
+    background: #FFF4EB;
+    color: #FF6129;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.badge-custom {
+    background: rgba(255,255,255,0.2);
+    padding: 10px 20px;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-card {
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 25px;
+    transition: 0.3s;
+}
+
+.category-card:hover {
+    border-color: #FF6129;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.course-card {
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.course-card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.popular-section .section-box {
+    background: #F5F8FA;
+}
+
+.course-card {
+    border-radius: 20px;
+    transition: 0.3s;
+    border: none;
+}
+
+.course-card:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.footer-box {
+    background: #F5F8FA;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #6D7786;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: #FF6129;
+}
+
+.hire-badge {
+    background: #FFF4EB;
+    color: #FF6129;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero-wrapper {
+    height: 300px;
+}
+
+.lesson-sidebar {
+    background-color: #F5F8FA;
+}
+
+.lesson-item {
+    background-color: #E9EFF3;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.lesson-item:hover {
+    background-color: #3525B3;
+    color: white;
+}
+
+.lesson-active {
+    background-color: #3525B3;
+}
+
+.bg-soft {
+    background-color: #F5F8FA;
+}

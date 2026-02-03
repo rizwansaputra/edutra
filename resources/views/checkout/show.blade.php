@@ -1,286 +1,300 @@
-{{-- resources/views/checkout/show.blade.php --}}
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout - {{ $course->name }}</title>
 
-    {{-- Bootstrap CSS --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    {{-- Tailwind/output CSS --}}
-    <link href="{{ asset('output.css') }}" rel="stylesheet">
+<style>
+body{
+    font-family:'Poppins',sans-serif;
+    background:#eef2f5;
+}
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+.hero{
+    background:url('{{ asset("assets/background/Hero-Banner.png") }}') center/cover no-repeat;
+    border-radius:32px;
+    padding:40px 50px 80px 50px;
+    margin-top:40px;
+    position:relative;
+}
+
+.hero h2{
+    font-weight:700;
+}
+
+.card-box{
+    border-radius:24px;
+    padding:30px;
+}
+
+.badge-orange{
+    background:#FF6129;
+}
+
+.btn-orange{
+    background:#FF6129;
+    color:white;
+    border:none;
+}
+
+.btn-orange:hover{
+    background:#e3541f;
+    color:white;
+}
+
+.footer-bg{
+    background:#F5F8FA;
+    border-radius:32px;
+    padding:50px;
+    margin-top:60px;
+}
+</style>
 </head>
 
-<body class="text-black font-poppins pt-10">
+<body>
 
-<div id="checkout-section"
-     class="max-w-[1200px] mx-auto w-full min-h-[calc(100vh-40px)] d-flex flex-column gap-[30px]
-            bg-center bg-no-repeat bg-cover rounded-t-[32px] overflow-hidden position-relative pb-6"
-     style="background-image: url('{{ asset('assets/background/Hero-Banner.png') }}');">
+{{-- HERO SECTION --}}
+<div class="container hero text-white">
 
     {{-- NAVBAR --}}
-    <nav class="flex justify-between items-center pt-6 px-[50px] relative z-20">
-        <a href="{{ route('home') }}" class="shrink-0">
-            <img src="{{ asset('assets/logo/logo.svg') }}" alt="logo">
-        </a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
 
-        <ul class="flex items-center gap-[30px] text-white mb-0">
-            <li><a href="{{ route('home') }}" class="font-semibold no-underline text-white">Home</a></li>
-            <li><a href="#Popular-Courses" class="font-semibold no-underline text-white">Kelas</a></li>
-            <li><a href="#" class="font-semibold no-underline text-white">Produk Digital</a></li>
-            <li><a href="#" class="font-semibold no-underline text-white">Stories</a></li>
-        </ul>
+        <div class="container-fluid">
 
-        @auth
-            <div class="relative flex gap-[10px] items-center">
-                <div class="flex flex-col items-end justify-center leading-tight">
-                    <p class="font-semibold text-white mb-1">Hi, {{ auth()->user()->name }}</p>
-                    <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center mb-0">
-                        PRO
-                    </p>
-                </div>
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <img src="{{ asset('assets/logo/logo.svg') }}" height="40">
+            </a>
 
-                <button
-                    type="button"
-                    id="user-menu-toggle"
-                    class="block w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0 border border-white/40"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
-                    <img src="{{ asset('assets/photo/photo5.png') }}" class="w-full h-full object-cover" alt="photo">
-                </button>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarCheckout">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div
-                    id="user-menu"
-                    class="hidden absolute right-0 top-full mt-3 z-[9999] flex flex-col w-44
-                           bg-white rounded-xl shadow-lg py-2 overflow-hidden"
-                    style="min-width: 160px;"
-                >
-                    <a href="{{ route('my-courses.index') }}"
-                       class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 no-underline">
-                        My Courses
-                    </a>
+            <div class="collapse navbar-collapse justify-content-center"
+                 id="navbarCheckout">
 
-                    <a href="{{ route('settings.edit') }}"
-                       class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 no-underline">
-                        Settings
-                    </a>
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="#">Kelas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="#">Produk Digital</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="#">Stories</a>
+                    </li>
+                </ul>
 
-                    <form method="POST" action="{{ route('filament.student.auth.logout') }}"
-                          class="mt-2 pt-2 border-t border-gray-100">
-                        @csrf
-                        <button type="submit"
-                                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                            Logout
+                {{-- AUTH --}}
+                @auth
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle rounded-pill px-4"
+                                data-bs-toggle="dropdown">
+                            Hi, {{ auth()->user()->name }}
                         </button>
-                    </form>
-                </div>
-            </div>
-        @else
-            <div class="flex gap-[10px] items-center">
-                <a href="{{ route('filament.student.auth.login') }}"
-                   class="text-white font-semibold rounded-[30px] p-[16px_32px] ring-1 ring-white
-                          transition-all duration-300 hover:ring-2 hover:ring-[#FF6129] no-underline">
-                    Login
-                </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('my-courses.index') }}">
+                                    My Courses
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('settings.edit') }}">
+                                    Settings
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST"
+                                      action="{{ route('filament.student.auth.logout') }}">
+                                    @csrf
+                                    <button class="dropdown-item text-danger">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @else
+                    <div class="d-flex gap-2 mt-3 mt-lg-0">
+                        <a href="{{ route('filament.student.auth.login') }}"
+                           class="btn btn-outline-light rounded-pill px-4">
+                            Login
+                        </a>
+                        <a href="{{ url('/register') }}"
+                           class="btn btn-orange rounded-pill px-4">
+                            Register
+                        </a>
+                    </div>
+                @endauth
 
-                <a href="{{ url('/register') }}"
-                   class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129]
-                          transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980] no-underline">
-                    Register
-                </a>
             </div>
-        @endauth
+        </div>
     </nav>
 
     {{-- TITLE --}}
-    <div class="d-flex flex-column gap-2 align-items-center mt-3">
-        <div class="gradient-badge w-auto px-3 py-2 rounded-pill border border-[#FED6AD]
-                    d-flex align-items-center gap-2 bg-white bg-opacity-80">
-            <div>
-                <img src="{{ asset('assets/icon/medal-star.svg') }}" alt="icon">
-            </div>
-            <p class="fw-medium small mb-0" style="color:#FF6129;">Invest In Yourself Today</p>
-        </div>
+    <div class="text-center mt-4">
+        <span class="badge bg-light text-dark px-3 py-2 rounded-pill">
+            Invest In Yourself Today
+        </span>
 
-        <h2 class="fw-bold text-white text-center" style="font-size:32px;line-height:48px;">
+        <h2 class="mt-3">
             Checkout Subscription (Free)
         </h2>
     </div>
 
-    {{-- CONTENT --}}
-    <div class="container position-relative mt-4" style="z-index:10;">
-        <div class="row g-4 px-2 px-md-4">
+</div>
 
-            {{-- LEFT: PACKAGE --}}
-            <div class="col-md-6">
-                <div class="w-100 d-flex flex-column bg-white rounded-4 p-4 gap-3 h-100">
-                    <p class="fw-bold fs-5 mb-2">Package</p>
 
-                    <div class="d-flex align-items-center justify-content-between w-100">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-circle overflow-hidden flex-shrink-0" style="width:50px;height:50px;">
-                                <img src="{{ asset('assets/icon/Web Development 1.svg') }}"
-                                     class="w-100 h-100 object-cover" alt="photo">
+{{-- CONTENT --}}
+<div class="container mt-5">
+
+    <div class="row g-4">
+
+        {{-- LEFT --}}
+        <div class="col-md-6">
+            <div class="bg-white shadow-sm card-box h-100">
+
+                <h5 class="fw-bold mb-4">Package</h5>
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="{{ asset('assets/icon/Web Development 1.svg') }}"
+                             width="50" height="50">
+
+                        <div>
+                            <div class="fw-semibold">
+                                {{ $course->name }}
                             </div>
-
-                            <div class="d-flex flex-column gap-1">
-                                <p class="fw-semibold mb-0">{{ $course->name }}</p>
-                                <p class="small mb-0" style="color:#6D7786;">Free access</p>
-                            </div>
-                        </div>
-
-                        <p class="mb-0 px-3 py-1 rounded-pill text-white text-center fw-semibold"
-                           style="background-color:#FF6129;font-size:12px;">
-                            Free
-                        </p>
-                    </div>
-
-                    <hr>
-
-                    <div class="d-flex flex-column gap-3 small">
-                        <div class="d-flex gap-3">
-                            <div style="width:24px;height:24px;" class="flex-shrink-0">
-                                <img src="{{ asset('assets/icon/tick-circle.svg') }}"
-                                     class="w-100 h-100 object-cover" alt="icon">
-                            </div>
-                            <p class="mb-0" style="color:#475466;">Access course videos</p>
-                        </div>
-
-                        <div class="d-flex gap-3">
-                            <div style="width:24px;height:24px;" class="flex-shrink-0">
-                                <img src="{{ asset('assets/icon/tick-circle.svg') }}"
-                                     class="w-100 h-100 object-cover" alt="icon">
-                            </div>
-                            <p class="mb-0" style="color:#475466;">Join learning community</p>
+                            <small class="text-muted">Free access</small>
                         </div>
                     </div>
 
-                    <p class="fw-semibold mb-0 mt-2" style="font-size:24px;line-height:36px;">Rp 0</p>
+                    <span class="badge badge-orange text-white rounded-pill px-3 py-2">
+                        Free
+                    </span>
                 </div>
+
+                <hr>
+
+                <ul class="list-unstyled small">
+                    <li class="mb-2">✔ Access course videos</li>
+                    <li>✔ Join learning community</li>
+                </ul>
+
+                <h4 class="fw-bold mt-3">Rp 0</h4>
+
             </div>
+        </div>
 
-            {{-- RIGHT: KONFIRMASI --}}
-            <div class="col-md-6">
-                <div class="w-100 d-flex flex-column bg-white rounded-4 p-4 gap-3 h-100">
-                    <p class="fw-bold fs-5 mb-2">Confirm Free Access</p>
 
-                    <div class="d-flex flex-column gap-3 small">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span style="color:#475466;">Course</span>
-                            <span class="fw-semibold text-end">{{ $course->name }}</span>
-                        </div>
+        {{-- RIGHT --}}
+        <div class="col-md-6">
+            <div class="bg-white shadow-sm card-box h-100">
 
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span style="color:#475466;">Category</span>
-                            <span class="fw-semibold text-end">
-                                {{ $course->category->name ?? 'Uncategorized' }}
-                            </span>
-                        </div>
+                <h5 class="fw-bold mb-4">Confirm Free Access</h5>
 
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span style="color:#475466;">User</span>
-                            <span class="fw-semibold text-end">
-                                {{ auth()->check() ? auth()->user()->name : 'Guest' }}
-                            </span>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span style="color:#475466;">Price</span>
-                            <span class="fw-semibold text-end">Rp 0</span>
-                        </div>
+                <div class="small mb-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Course</span>
+                        <span class="fw-semibold">{{ $course->name }}</span>
                     </div>
 
-                    <hr>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Category</span>
+                        <span class="fw-semibold">
+                            {{ $course->category->name ?? 'Uncategorized' }}
+                        </span>
+                    </div>
 
-                    @if(auth()->check())
-                        <form action="{{ route('checkout.activate', $course) }}" method="POST">
-                            @csrf
-                            <button type="submit"
-                                    class="p-[16px_32px] bg-[#FF6129] text-white rounded-full text-center font-semibold
-                                           transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980] w-full">
-                                Activate Free Access
-                            </button>
-                        </form>
-                    @else
-                        <p class="small mb-2" style="color:#475466;">
-                            Untuk mengaktifkan course ini, silakan login terlebih dahulu.
-                        </p>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">User</span>
+                        <span class="fw-semibold">
+                            {{ auth()->check() ? auth()->user()->name : 'Guest' }}
+                        </span>
+                    </div>
 
-                        <a href="{{ route('checkout.login', $course) }}"
-                           class="w-100 d-inline-block text-center py-3 rounded-pill fw-semibold text-white text-decoration-none"
-                           style="background-color:#FF6129;transition:all .3s;">
-                            Login untuk melanjutkan
-                        </a>
-                    @endif
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Price</span>
+                        <span class="fw-semibold">Rp 0</span>
+                    </div>
                 </div>
-            </div>
 
+                <hr>
+
+                @auth
+                    <form action="{{ route('checkout.activate', $course) }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                                class="btn btn-orange w-100 rounded-pill py-3 fw-semibold">
+                            Activate Free Access
+                        </button>
+                    </form>
+                @else
+                    <p class="small text-muted">
+                        Silakan login terlebih dahulu untuk mengaktifkan course.
+                    </p>
+
+                    <a href="{{ route('checkout.login', $course) }}"
+                       class="btn btn-orange w-100 rounded-pill py-3 fw-semibold">
+                        Login untuk melanjutkan
+                    </a>
+                @endauth
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{{-- FOOTER --}}
+<div class="container footer-bg">
+
+    <div class="row">
+        <div class="col-lg-3 mb-3">
+            <img src="{{ asset('assets/logo/logo-black.svg') }}" height="40">
+        </div>
+
+        <div class="col-lg-3 mb-3">
+            <h6 class="fw-bold">Products</h6>
+            <p class="text-muted small mb-1">Online Courses</p>
+            <p class="text-muted small">Career Guidance</p>
+        </div>
+
+        <div class="col-lg-3 mb-3">
+            <h6 class="fw-bold">Company</h6>
+            <p class="text-muted small mb-1">About Us</p>
+            <p class="text-muted small">Careers</p>
+        </div>
+
+        <div class="col-lg-3 mb-3">
+            <h6 class="fw-bold">Resources</h6>
+            <p class="text-muted small mb-1">Blog</p>
+            <p class="text-muted small">Help Center</p>
         </div>
     </div>
 
-    {{-- BACKGROUND BAWAH: jangan sampai nangkep klik --}}
-    <div class="d-flex justify-content-center position-absolute translate-middle-x start-50 bottom-0 w-100 opacity-75"
-         style="pointer-events:none;">
-        <img src="{{ asset('assets/background/alqowy.svg') }}" alt="background">
-    </div>
+    <hr>
+
+    <p class="text-center text-muted small mb-0">
+        © 2024 Edutra. All Rights Reserved.
+    </p>
+
 </div>
 
-{{-- JS --}}
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="{{ asset('main.js') }}"></script>
-
-{{-- Dropdown toggle --}}
-<script>
-    (function () {
-        const toggle = document.getElementById('user-menu-toggle');
-        const menu   = document.getElementById('user-menu');
-
-        if (!toggle || !menu) return;
-
-        const openMenu = () => {
-            menu.classList.remove('hidden');
-            toggle.setAttribute('aria-expanded', 'true');
-        };
-
-        const closeMenu = () => {
-            menu.classList.add('hidden');
-            toggle.setAttribute('aria-expanded', 'false');
-        };
-
-        toggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (menu.classList.contains('hidden')) {
-                openMenu();
-            } else {
-                closeMenu();
-            }
-        });
-
-        menu.addEventListener('click', function (e) {
-            e.stopPropagation();
-        });
-
-        document.addEventListener('click', function () {
-            closeMenu();
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeMenu();
-        });
-    })();
-</script>
 
 </body>
 </html>

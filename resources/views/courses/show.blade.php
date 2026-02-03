@@ -212,8 +212,8 @@ Checkout Course
 
                 {{-- DESKRIPSI --}}
                 @if($course->about)
-                    <p class="mb-4" style="line-height:28px;">
-                        {{ $course->about }}
+                  <p class="mb-4 text-muted" style="line-height:1.9;">
+                        {!! nl2br(e($course->about)) !!}
                     </p>
                 @else
                     <p class="text-muted mb-4">

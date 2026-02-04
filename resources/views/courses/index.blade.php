@@ -27,7 +27,7 @@
                         <a class="nav-link text-white" href="#Popular-Courses">Kelas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Produk Digital</a>
+                        <a class="nav-link text-white" href="https://edutra.id/product-digital/">Produk Digital</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#">Stories</a>

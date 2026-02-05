@@ -92,6 +92,37 @@ body{
     padding:60px;
     margin-top:80px;
 }
+
+.play-icon{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:#2f3a4c;
+    color:white;
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.join-btn{
+    display:block;
+    margin:20px -25px -25px -25px; /* tarik full sampai ujung card */
+    padding:20px;
+    text-align:center;
+    background:linear-gradient(135deg,#4B3CF0,#2D3BEF);
+    color:white;
+    font-weight:600;
+    font-size:18px;
+    border-bottom-left-radius:24px;
+    border-bottom-right-radius:24px;
+    transition:.3s ease;
+}
+
+.join-btn:hover{
+    opacity:.9;
+    color:white;
+}
+
 </style>
 </head>
 <body>
@@ -125,7 +156,7 @@ $embedUrl = "https://www.youtube.com/embed/".$videoId;
 <ul class="navbar-nav mx-auto text-center">
 <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="#">Kelas</a></li>
-<li class="nav-item"><a class="nav-link" href="#">Produk Digital</a></li>
+<li class="nav-item"><a class="nav-link" href="https://edutra.id/product-digital/">Produk Digital</a></li>
 <li class="nav-item"><a class="nav-link" href="#">Stories</a></li>
 </ul>
 
@@ -161,14 +192,50 @@ allowfullscreen allow="autoplay"></iframe>
 <div class="video-sidebar shadow-sm">
 
 <h5 class="fw-bold mb-4">
-{{ $course->videos->count() }} Lessons
+    {{ $course->videos->count() }} lessons 
+    {{-- ({{ gmdate("H.i", $course->videos->sum('duration')) }} hours) --}}
 </h5>
 
-@foreach($course->videos as $index => $video)
-<div class="lesson-item {{ $index==0 ? 'lesson-active' : '' }}">
-{{ $video->name }}
-</div>
+@php
+    $totalVideos = $course->videos->count();
+@endphp
+
+@foreach($course->videos->take(4) as $index => $video)
+    <div class="lesson-item {{ $index==0 ? 'lesson-active' : '' }}">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <span class="play-icon">▶</span>
+                <span>{{ $video->name }}</span>
+            </div>
+            {{-- <span class="text-muted small">
+                {{ $video->duration ?? '6 mins' }}
+            </span> --}}
+        </div>
+    </div>
 @endforeach
+
+@if($totalVideos > 4)
+    <div class="lesson-item">
+        <div class="d-flex align-items-center gap-2">
+            <span class="play-icon">▶</span>
+            <span>{{ $totalVideos - 4 }} video lainnya</span>
+        </div>
+    </div>
+@endif
+
+
+@if(auth()->check() && $isSubscribed)
+<a href="{{ url('/student/my-courses/'.$course->id) }}"
+class="join-btn text-center d-block text-decoration-none">
+Lanjut Belajar
+</a>
+@else
+<a href="{{ route('checkout.free.show', $course->slug) }}"
+class="join-btn text-center d-block text-decoration-none">
+Checkout Course
+</a>
+@endif
+
 
 </div>
 </div>
@@ -185,18 +252,6 @@ allowfullscreen allow="autoplay"></iframe>
 <span>Certificate</span>
 </div>
 
-@if(auth()->check() && $isSubscribed)
-<a href="{{ url('/student/my-courses/'.$course->id) }}"
-class="btn btn-success rounded-pill mt-3">
-Lanjut Belajar
-</a>
-@else
-<a href="{{ route('checkout.free.show', $course->slug) }}"
-class="btn rounded-pill mt-3"
-style="background:#FF6129;color:white;">
-Checkout Course
-</a>
-@endif
 
 </div>
 

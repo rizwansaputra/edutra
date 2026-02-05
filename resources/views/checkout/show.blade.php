@@ -86,7 +86,7 @@ body{
                         <a class="nav-link text-white fw-semibold" href="#">Kelas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-semibold" href="#">Produk Digital</a>
+                        <a class="nav-link text-white fw-semibold" href="https://edutra.id/product-digital/">Produk Digital</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white fw-semibold" href="#">Stories</a>

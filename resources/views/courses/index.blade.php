@@ -50,13 +50,10 @@
                             </button>
                         </form>
                     @else
+                        
                         <a href="{{ route('filament.student.auth.login') }}" 
-                           class="btn btn-outline-light rounded-pill me-2">
-                            Login
-                        </a>
-                        <a href="{{ url('/register') }}" 
-                           class="btn btn-primary-custom rounded-pill">
-                            Register
+                           class="btn btn-primary-custom rounded-pill me-3">
+                             Login / Register
                         </a>
                     @endauth
                 </div>

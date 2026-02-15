@@ -14,7 +14,7 @@
             href="{{ route('student.google.redirect') }}"
             class="inline-flex w-full items-center justify-center rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-100"
         >
-            Login / Daftar dengan Google
+            Login / Daftar dengan Googlea
         </a>
     </div>
 </x-filament-panels::page.simple>
